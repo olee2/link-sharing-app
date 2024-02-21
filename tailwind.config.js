@@ -6,7 +6,7 @@ module.exports = {
       activeSelection: "0 0 32px rgba(99,60,255,0.25)",
       regular: "0 0 32px rgba(0,0,0,0.1)"
     },
-    fontSize: { hm: "32px", hs: "16px", bm: "16px", bs: "12px" },
+    fontSize: { hl: "32px", hm: "24px", hs: "16px", bm: "16px", bs: "12px" },
     fontFamily: {
       instrumentSans: ["Instrument Sans"]
     },
