@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.email-input {
+  background: transparent url("./images/icon-email.svg") no-repeat 13px center;
+}
+
+.password-input {
+  background: transparent url("./images/icon-password.svg") no-repeat 13px
+    center;
+}
+
+.password-input:focus,
+.email-input:focus {
+  caret-color: #633cff;
+}
