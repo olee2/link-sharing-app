@@ -1,8 +1,11 @@
-import { authenticateUser } from "../api/authenticateUser";
+import { registerUser } from "../api/registerUser";
 
 const form = document.getElementById("login-form") as HTMLFormElement;
 const email = document.getElementById("email") as HTMLInputElement;
 const password = document.getElementById("password") as HTMLInputElement;
+const confirmPassword = document.getElementById(
+  "confirm-password"
+) as HTMLInputElement;
 const toastContainer = document.getElementById("toast-container");
 
 function handleToast() {
@@ -30,12 +33,32 @@ function handleToast() {
   }
 }
 
+confirmPassword.addEventListener("input", () => {
+  // Reset custom validity
+  confirmPassword.setCustomValidity("");
+});
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const body = { email: email.value, password: password.value };
+
+  if (password.value !== confirmPassword.value) {
+    confirmPassword.setCustomValidity("Passwords does not match");
+  } else {
+    confirmPassword.setCustomValidity("");
+  }
+
+  // Force the form to re-check its validation constraints
+  form.reportValidity();
+
+  if (!form.checkValidity()) {
+    return;
+  }
+
+  const body = { email: email.value, password: password.value, active: 1 };
 
   try {
-    const result = await authenticateUser(body);
+    const result = await registerUser(body);
+
     if (toastContainer) {
       toastContainer.innerHTML = `<div class="toast">
       <div class="alert alert-success">
@@ -43,6 +66,7 @@ form.addEventListener("submit", async (e) => {
       </div>
      </div>`;
     }
+
     form.reset();
   } catch (error) {
     if (toastContainer) {

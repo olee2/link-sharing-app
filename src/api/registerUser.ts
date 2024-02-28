@@ -13,8 +13,8 @@ export interface Body {
   password: string;
 }
 
-export const authenticateUser = async (body: Body): Promise<User> => {
-  const response = await fetch("http://localhost:8081/authenticate", {
+export const registerUser = async (body: Body): Promise<User> => {
+  const response = await fetch("http://localhost:8081/create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

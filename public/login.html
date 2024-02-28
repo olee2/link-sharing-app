@@ -14,6 +14,7 @@
     />
   </head>
   <body class="h-full font-instrumentSans sm:bg-greyLight text-greyDark">
+    <div id="toast-container"></div>
     <div class="flex sm:min-h-full flex-col sm:justify-center sm:gap-12 gap-6">
       <div>
         <img
@@ -41,8 +42,9 @@
                 placeholder="e.g. alex@email.com"
                 id="email"
                 name="email"
-                type="text"
+                type="email"
                 autocomplete="email"
+                required
                 class="block w-full border-borders rounded-md p-3 pl-10 placeholder:text-greyDark placeholder:text-opacity-50 focus:ring-0 focus:shadow-activeSelection focus:ring-inset focus:ring-purple email-input"
               />
             </div>
@@ -57,6 +59,7 @@
             <div class="mt-2">
               <input
                 id="password"
+                required
                 name="password"
                 type="password"
                 placeholder="Enter your password"
