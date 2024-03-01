@@ -15,3 +15,11 @@
 .email-input:focus {
   caret-color: #633cff;
 }
+
+.header-links-btn svg path {
+  fill: currentColor;
+}
+
+.header-profile-btn svg path {
+  fill: currentColor;
+}
