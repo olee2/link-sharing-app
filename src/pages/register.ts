@@ -1,4 +1,5 @@
 import { registerUser } from "../api/registerUser";
+import { handleToast } from "../utils";
 
 const form = document.getElementById("login-form") as HTMLFormElement;
 const email = document.getElementById("email") as HTMLInputElement;
@@ -8,33 +9,8 @@ const confirmPassword = document.getElementById(
 ) as HTMLInputElement;
 const toastContainer = document.getElementById("toast-container");
 
-function handleToast() {
-  const toast = document.querySelector(".toast");
-
-  let timeLeft = 5;
-  if (toast) {
-    const countdown = setInterval(() => {
-      if (toastContainer) {
-        if (timeLeft <= 0) {
-          clearTimeout(countdown);
-          toastContainer.innerHTML = "";
-        } else {
-          timeLeft -= 1;
-        }
-      }
-    }, 1000);
-
-    toast.addEventListener("click", () => {
-      if (toastContainer) {
-        toastContainer.innerHTML = "";
-        clearTimeout(countdown);
-      }
-    });
-  }
-}
-
+// Reset custom validity on input
 confirmPassword.addEventListener("input", () => {
-  // Reset custom validity
   confirmPassword.setCustomValidity("");
 });
 
@@ -77,8 +53,9 @@ form.addEventListener("submit", async (e) => {
      </div>`;
     }
   }
-  handleToast();
-});
+  const toast = document.querySelector(".toast");
 
-//   email: "admin@example.com",
-//   password: "verysecret"
+  if (toast) {
+    handleToast(toast);
+  }
+});

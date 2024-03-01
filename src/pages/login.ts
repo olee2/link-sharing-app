@@ -1,34 +1,10 @@
 import { authenticateUser } from "../api/authenticateUser";
+import { handleToast } from "../utils";
 
 const form = document.getElementById("login-form") as HTMLFormElement;
 const email = document.getElementById("email") as HTMLInputElement;
 const password = document.getElementById("password") as HTMLInputElement;
 const toastContainer = document.getElementById("toast-container");
-
-function handleToast() {
-  const toast = document.querySelector(".toast");
-
-  let timeLeft = 5;
-  if (toast) {
-    const countdown = setInterval(() => {
-      if (toastContainer) {
-        if (timeLeft <= 0) {
-          clearTimeout(countdown);
-          toastContainer.innerHTML = "";
-        } else {
-          timeLeft -= 1;
-        }
-      }
-    }, 1000);
-
-    toast.addEventListener("click", () => {
-      if (toastContainer) {
-        toastContainer.innerHTML = "";
-        clearTimeout(countdown);
-      }
-    });
-  }
-}
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -53,8 +29,8 @@ form.addEventListener("submit", async (e) => {
      </div>`;
     }
   }
-  handleToast();
+  const toast = document.querySelector(".toast");
+  if (toast) {
+    handleToast(toast);
+  }
 });
-
-//   email: "admin@example.com",
-//   password: "verysecret"
