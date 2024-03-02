@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="h-full" lang="en">
+<html class="h-full overflow-scroll" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,7 +19,9 @@
 
     <title>Link-sharing app</title>
   </head>
-  <body class="font-instrumentSans bg-greyLight h-full p-4">
+  <body
+    class="font-instrumentSans bg-greyLight h-full sm:p-4 flex flex-col sm:gap-4 overflow-scroll"
+  >
     <header class="bg-white w-full flex justify-between p-2">
       <img
         class="max-sm:hidden w-36"
@@ -83,5 +85,87 @@
         <span class="max-sm:hidden">Preview</span>
       </button>
     </header>
+    <main class="flex flex-1 gap-4 max-sm:m-4">
+      <div
+        class="bg-white h-full w-full flex items-center justify-center max-md:hidden"
+      >
+        <div class="phone">
+          <div class="phone-inner">
+            <div class="camera"></div>
+            <div
+              class="mobile-profile mt-9 flex flex-col justify-center items-center gap-4"
+            >
+              <div
+                class="mobile-image-container mb-4 w-24 h-24 bg-greyLight rounded-full"
+              ></div>
+              <div
+                class="mobile-name-container w-40 h-4 bg-greyLight rounded-md"
+              ></div>
+              <div
+                class="mobile-email-container w-20 h-2 bg-greyLight rounded-md"
+              ></div>
+            </div>
+            <div
+              class="mobile-links mt-10 flex flex-col justify-center items-center gap-4"
+            >
+              <div class="w-60 h-11 bg-greyLight rounded-md"></div>
+              <div class="w-60 h-11 bg-greyLight rounded-md"></div>
+              <div class="w-60 h-11 bg-greyLight rounded-md"></div>
+              <div class="w-60 h-11 bg-greyLight rounded-md"></div>
+              <div class="w-60 h-11 bg-greyLight rounded-md"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white h-full w-full flex flex-col">
+        <div class="p-10 flex-1 flex flex-col">
+          <h1 class="text-hm mb-2 font-bold text-greyDark">Profile Details</h1>
+          <p>Add your details to create a personal touch to your portfolio.</p>
+          <div class="flex-1 flex flex-col gap-4 mt-10 mb-40">
+            <div
+              class="flex flex-1 max-sm:flex-col justify-center sm:items-center bg-greyLight gap-5 p-5"
+            >
+              <p class="sm:flex-1">Profile picture</p>
+              <div
+                class="flex flex-col flex-1 h-full bg-purpleLight text-purple font-semibold gap-2 items-center justify-center rounded-md px-6 py-2 sm:min-w-48 w-48"
+              >
+                <label class="cursor-pointer" for="profile-image">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="40"
+                    height="40"
+                    fill="none"
+                    viewBox="0 0 40 40"
+                    class="mx-auto"
+                  >
+                    <path
+                      fill="#633CFF"
+                      d="M33.75 6.25H6.25a2.5 2.5 0 0 0-2.5 2.5v22.5a2.5 2.5 0 0 0 2.5 2.5h27.5a2.5 2.5 0 0 0 2.5-2.5V8.75a2.5 2.5 0 0 0-2.5-2.5Zm0 2.5v16.055l-4.073-4.072a2.5 2.5 0 0 0-3.536 0l-3.125 3.125-6.875-6.875a2.5 2.5 0 0 0-3.535 0L6.25 23.339V8.75h27.5ZM6.25 26.875l8.125-8.125 12.5 12.5H6.25v-4.375Zm27.5 4.375h-3.34l-5.624-5.625L27.91 22.5l5.839 5.84v2.91ZM22.5 15.625a1.875 1.875 0 1 1 3.75 0 1.875 1.875 0 0 1-3.75 0Z"
+                    />
+                  </svg>
+                  <span>+ Upload Image</span>
+                </label>
+                <input class="hidden" type="file" id="profile-image" />
+              </div>
+              <p class="text-bs sm:flex-1">
+                Image must be below 1024x1024px. Use PNG or JPG format.
+              </p>
+            </div>
+            <div
+              class="flex flex-1 justify-center items-center flex-col bg-greyLight p-5"
+            ></div>
+          </div>
+        </div>
+
+        <hr class="border-borders" />
+        <button
+          disabled
+          type="submit"
+          class="transition ease-in-out bg-purple text-white hover:bg-purpleHover hover:shadow-activeSelection disabled:bg-purpleLight my-5 mx-10 sm:mr-10 font-bold rounded-md sm:self-end px-6 py-2"
+        >
+          Save
+        </button>
+      </div>
+    </main>
   </body>
 </html>
