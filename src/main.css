@@ -23,3 +23,32 @@
 .header-profile-btn svg path {
   fill: currentColor;
 }
+
+.phone {
+  border: 1px solid #737373;
+  width: 307px;
+  height: 631px;
+  border-radius: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-inner {
+  border: 1px solid #737373;
+  width: 285px;
+  height: 611px;
+  border-radius: 60px;
+}
+
+.camera {
+  width: 130px;
+  height: 20px;
+  border: 1px solid #737373;
+  background-color: white;
+  margin-inline: auto;
+  margin-top: -1px;
+  border-top: none;
+  border-bottom-left-radius: 17px;
+  border-bottom-right-radius: 17px;
+}
