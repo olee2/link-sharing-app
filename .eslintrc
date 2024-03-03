@@ -14,12 +14,8 @@
   "rules": {
     "prettier/prettier": ["error", { "trailingComma": "none" }],
     "react/jsx-filename-extension": "off",
-    "no-param-reassign": [
-      "error",
-      {
-        "props": true,
-        "ignorePropertyModificationsFor": ["state"]
-      }
-    ]
+
+    "no-param-reassign": "off",
+    "import/prefer-default-export": "off"
   }
 }
