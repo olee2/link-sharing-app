@@ -87,7 +87,7 @@
     </header>
     <main class="flex flex-1 gap-4 max-sm:m-4">
       <div
-        class="bg-white h-full w-full flex items-center justify-center max-md:hidden"
+        class="bg-white h-full w-full flex items-center justify-center max-lg:hidden"
       >
         <div class="phone">
           <div class="phone-inner">
@@ -117,17 +117,17 @@
           </div>
         </div>
       </div>
-      <div class="bg-white h-full w-full flex flex-col">
+      <form class="bg-white h-full w-full flex flex-col text-grey">
         <div class="p-10 flex-1 flex flex-col">
           <h1 class="text-hm mb-2 font-bold text-greyDark">Profile Details</h1>
           <p>Add your details to create a personal touch to your portfolio.</p>
-          <div class="flex-1 flex flex-col gap-4 mt-10 mb-40">
+          <div class="flex-1 flex flex-col gap-4 mt-10">
             <div
-              class="flex flex-1 max-sm:flex-col justify-center sm:items-center bg-greyLight gap-5 p-5"
+              class="flex max-sm:flex-col justify-center sm:items-center bg-greyLight gap-5 p-5"
             >
               <p class="sm:flex-1">Profile picture</p>
               <div
-                class="flex flex-col flex-1 h-full bg-purpleLight text-purple font-semibold gap-2 items-center justify-center rounded-md px-6 py-2 sm:min-w-48 w-48"
+                class="flex flex-col bg-purpleLight text-purple font-semibold gap-2 items-center justify-center rounded-md px-6 py-2 w-48 h-48"
               >
                 <label class="cursor-pointer" for="profile-image">
                   <svg
@@ -145,15 +145,51 @@
                   </svg>
                   <span>+ Upload Image</span>
                 </label>
-                <input class="hidden" type="file" id="profile-image" />
+                <input
+                  class="hidden"
+                  type="file"
+                  id="profile-image"
+                  accept="image/*"
+                />
               </div>
               <p class="text-bs sm:flex-1">
                 Image must be below 1024x1024px. Use PNG or JPG format.
               </p>
             </div>
             <div
-              class="flex flex-1 justify-center items-center flex-col bg-greyLight p-5"
-            ></div>
+              class="flex justify-center items-center flex-col gap-4 bg-greyLight p-5"
+            >
+              <div
+                class="flex w-full items-center max-sm:flex-col max-sm:items-start"
+              >
+                <label class="flex-1" for="first-name">First Name*</label
+                ><input
+                  class="block flex-2 w-full border-borders rounded-md p-3 pl-10 placeholder:text-greyDark placeholder:text-opacity-50 focus:ring-0 focus:shadow-activeSelection focus:ring-inset focus:ring-purple"
+                  type="text"
+                  id="first-name"
+                />
+              </div>
+              <div
+                class="flex w-full items-center max-sm:flex-col max-sm:items-start"
+              >
+                <label class="flex-1" for="last-name">Last Name*</label
+                ><input
+                  class="block flex-2 w-full border-borders rounded-md p-3 pl-10 placeholder:text-greyDark placeholder:text-opacity-50 focus:ring-0 focus:shadow-activeSelection focus:ring-inset focus:ring-purple"
+                  type="text"
+                  id="last-name"
+                />
+              </div>
+              <div
+                class="flex w-full items-center max-sm:flex-col max-sm:items-start"
+              >
+                <label class="flex-1" for="email">Email</label
+                ><input
+                  class="block flex-2 w-full border-borders rounded-md p-3 pl-10 placeholder:text-greyDark placeholder:text-opacity-50 focus:ring-0 focus:shadow-activeSelection focus:ring-inset focus:ring-purple"
+                  type="text"
+                  id="last-name"
+                />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -165,7 +201,7 @@
         >
           Save
         </button>
-      </div>
+      </form>
     </main>
   </body>
 </html>
