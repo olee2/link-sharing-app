@@ -96,14 +96,18 @@
             <div
               class="mobile-profile mt-9 flex flex-col justify-center items-center gap-4"
             >
+              <div class="mb-4 w-24 h-24 bg-greyLight rounded-full">
+                <img
+                  class="object-cover hidden h-full w-full rounded-full mobile-image-container border-2 border-purple"
+                  src=""
+                  alt=""
+                />
+              </div>
               <div
-                class="mobile-image-container mb-4 w-24 h-24 bg-greyLight rounded-full"
+                class="mobile-name-container min-w-40 h-4 bg-greyLight rounded-md text-greyDark text-center text-hs font-semibold"
               ></div>
               <div
-                class="mobile-name-container w-40 h-4 bg-greyLight rounded-md"
-              ></div>
-              <div
-                class="mobile-email-container w-20 h-2 bg-greyLight rounded-md"
+                class="mobile-email-container min-w-20 h-2 bg-greyLight rounded-md text-bs text-center"
               ></div>
             </div>
             <div
@@ -118,7 +122,10 @@
           </div>
         </div>
       </div>
-      <form class="bg-white h-full w-full flex flex-col text-grey rounded-md">
+      <form
+        id="profile-form"
+        class="bg-white h-full w-full flex flex-col text-grey rounded-md"
+      >
         <div class="p-5 sm:p-10 flex-1 flex flex-col">
           <h1 class="text-hm mb-2 font-bold text-greyDark">Profile Details</h1>
           <p>Add your details to create a personal touch to your portfolio.</p>
@@ -182,9 +189,11 @@
               >
                 <label class="flex-1" for="first-name">First Name*</label
                 ><input
-                  class="block flex-2 w-full border-borders rounded-md p-3 pl-10 placeholder:text-greyDark placeholder:text-opacity-50 focus:ring-0 focus:shadow-activeSelection focus:ring-inset focus:ring-purple"
+                  required
+                  class="block flex-2 w-full border-borders rounded-md p-3 placeholder:text-greyDark placeholder:text-opacity-50 focus:ring-0 focus:shadow-activeSelection focus:ring-inset focus:ring-purple"
                   type="text"
                   id="first-name"
+                  placeholder="e.g. John"
                 />
               </div>
               <div
@@ -192,9 +201,11 @@
               >
                 <label class="flex-1" for="last-name">Last Name*</label
                 ><input
-                  class="block flex-2 w-full border-borders rounded-md p-3 pl-10 placeholder:text-greyDark placeholder:text-opacity-50 focus:ring-0 focus:shadow-activeSelection focus:ring-inset focus:ring-purple"
+                  required
+                  class="block flex-2 w-full border-borders rounded-md p-3 placeholder:text-greyDark placeholder:text-opacity-50 focus:ring-0 focus:shadow-activeSelection focus:ring-inset focus:ring-purple"
                   type="text"
                   id="last-name"
+                  placeholder="e.g. Appleseed"
                 />
               </div>
               <div
@@ -202,9 +213,10 @@
               >
                 <label class="flex-1" for="email">Email</label
                 ><input
-                  class="block flex-2 w-full border-borders rounded-md p-3 pl-10 placeholder:text-greyDark placeholder:text-opacity-50 focus:ring-0 focus:shadow-activeSelection focus:ring-inset focus:ring-purple"
+                  class="block flex-2 w-full border-borders rounded-md p-3 placeholder:text-greyDark placeholder:text-opacity-50 focus:ring-0 focus:shadow-activeSelection focus:ring-inset focus:ring-purple"
                   type="text"
-                  id="last-name"
+                  id="email"
+                  placeholder="e.g. email@example.com"
                 />
               </div>
             </div>
@@ -215,6 +227,7 @@
         <button
           disabled
           type="submit"
+          id="form-submit-btn"
           class="transition ease-in-out bg-purple text-white hover:bg-purpleHover hover:shadow-activeSelection disabled:bg-purpleLight m-5 sm:mr-10 font-bold rounded-md lg:self-end px-6 py-2"
         >
           Save
