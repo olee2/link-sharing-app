@@ -1,3 +1,5 @@
+import { validateImage } from "../utils";
+
 // elements involved in uploading and previewing the profile image
 const imageInput = document.getElementById(
   "profile-image-input"
@@ -86,21 +88,31 @@ imageInput?.addEventListener("input", () => {
 
   if (file) {
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = async (event) => {
       const imageData = event?.target?.result;
-      // temp storage of the image in localstorage
-      localStorage.setItem("tempProfileImage", JSON.stringify(imageData));
 
-      // adding and displaying the image preview
-      if (imagePreview) {
-        imagePreview.classList.remove("hidden");
-        imagePreview.src = imageData as string;
-        if (imageLabelText) {
-          imageLabelText.innerText = "Change Image";
+      // Check if the file is a valid image
+      const isImageValid = await validateImage(file);
+
+      if (isImageValid) {
+        // temp storage of the image in localstorage
+        localStorage.setItem("tempProfileImage", JSON.stringify(imageData));
+
+        // adding and displaying the image preview
+        if (imagePreview) {
+          imagePreview.classList.remove("hidden");
+          imagePreview.src = imageData as string;
+          console.log(imagePreview);
+          if (imageLabelText) {
+            imageLabelText.innerText = "Change Image";
+          }
+          imageContainer?.classList.remove("text-purple");
+          imageContainer?.classList.add("text-white");
+          overlayContainer?.classList.remove("hidden");
         }
-        imageContainer?.classList.remove("text-purple");
-        imageContainer?.classList.add("text-white");
-        overlayContainer?.classList.remove("hidden");
+      } else {
+        // Notify the user about invalid image
+        console.log("Invalid image format or dimensions.");
       }
     };
     reader.readAsDataURL(file);
