@@ -56,3 +56,7 @@
 .flex-2 {
   flex: 2;
 }
+
+.label-svg path {
+  fill: currentColor;
+}
