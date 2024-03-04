@@ -112,7 +112,6 @@ imageInput?.addEventListener("input", () => {
         }
       } else {
         // Notify the user about invalid image
-        console.log("Invalid image format or dimensions.");
       }
     };
     reader.readAsDataURL(file);
@@ -138,7 +137,11 @@ form.addEventListener("submit", (e) => {
     firstName: firstName.value,
     lastName: lastName.value,
     email: email.value || "",
-    image: tempImage ? JSON.parse(tempImage) : ""
+    image: tempImage
+      ? JSON.parse(tempImage)
+      : storedProfile
+        ? JSON.parse(storedProfile).image
+        : ""
   };
 
   localStorage.setItem("profile", JSON.stringify(profile));
