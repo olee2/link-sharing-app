@@ -27,7 +27,7 @@ const mobileImageContainer = document.querySelector(
   ".mobile-image-container"
 ) as HTMLImageElement;
 
-interface Profile {
+export interface Profile {
   firstName: string;
   lastName: string;
   email: string;
