@@ -1737,15 +1737,6 @@ html {
   grid-template-rows: repeat(1, minmax(0, 1fr));
 }
 
-.textarea-sm {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  font-size: 0.875rem;
-  line-height: 2rem;
-}
-
 :where(.toast) {
   bottom: 0px;
   inset-inline-end: 0px;
@@ -1983,12 +1974,12 @@ html {
   width: 100%;
 }
 
-.min-w-40 {
-  min-width: 10rem;
-}
-
 .min-w-20 {
   min-width: 5rem;
+}
+
+.min-w-40 {
+  min-width: 10rem;
 }
 
 .max-w-lg {
