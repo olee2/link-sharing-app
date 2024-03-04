@@ -136,6 +136,53 @@
           >
             + Add new link
           </button>
+
+          <div
+            class="flex justify-center items-center flex-col bg-greyLight p-5 rounded-md mb-10 gap-4"
+          >
+            <div
+              class="flex w-full items-center justify-between font-bold text-bm text-grey"
+            >
+              <div class="flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="6"
+                  fill="none"
+                  viewBox="0 0 12 6"
+                  class="label-svg"
+                >
+                  <path fill="#737373" d="M0 0h12v1H0zM0 5h12v1H0z" />
+                </svg>
+                <p>Link #1</p>
+              </div>
+              <p class="font-normal">Remove</p>
+            </div>
+            <div class="flex flex-col w-full">
+              <label
+                for="countries"
+                class="block mb-1 text-bs text-grey font-semibold self-start"
+                >Platform</label
+              >
+              <select
+                id="platforms"
+                class="bg-gray-50 border border-borders select-md text-grey text-sm rounded-lg focus:ring-0 focus:border-borders block w-full p-2.5"
+              >
+                <option selected>Choose a platform</option>
+                <option
+                  style="
+                    background-image: url(&quot;./images/icon-github.svg&quot;);
+                  "
+                  value="github"
+                >
+                  Github
+                </option>
+                <option value="frontendMentor">Frontend Mentor</option>
+                <option value="twitter">Twitter</option>
+                <option value="linkedin">LinkedIn</option>
+              </select>
+            </div>
+          </div>
           <div
             class="flex-1 flex justify-center items-center flex-col bg-greyLight p-5 rounded-md"
           >
