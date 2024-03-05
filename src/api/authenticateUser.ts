@@ -13,16 +13,6 @@ export interface Body {
   password: string;
 }
 
-/**
- * Authenticates a user by sending a POST request to the server.
- *
- * @param body - The body of the request, containing the details needed to login a user.
- *
- * @returns A promise that resolves to a user object from the server. If the server responds with an error,
- * the promise will be rejected with an Error object.
- *
- * @throws Will throw an Error if the server responds with a response.ok of false.
- */
 export const authenticateUser = async (body: Body): Promise<User> => {
   const response = await fetch("http://localhost:8081/authenticate", {
     method: "POST",
@@ -32,11 +22,10 @@ export const authenticateUser = async (body: Body): Promise<User> => {
     body: JSON.stringify(body)
   });
 
-  const json = await response.json();
-
   if (!response.ok) {
-    throw new Error(`${json.message}`);
+    throw new Error(`${response.status} ${response.statusText}`);
   }
 
-  return json.message;
+  const json = await response.json();
+  return json.data as User;
 };
