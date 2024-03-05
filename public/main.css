@@ -2261,6 +2261,18 @@ html {
   height: 3rem;
 }
 
+.max-h-10 {
+  max-height: 2.5rem;
+}
+
+.max-h-40 {
+  max-height: 10rem;
+}
+
+.max-h-60 {
+  max-height: 15rem;
+}
+
 .w-24 {
   width: 6rem;
 }
