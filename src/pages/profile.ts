@@ -1,4 +1,4 @@
-import { validateImage } from "../utils";
+import { validateImage } from "../utils/validateImage.js";
 
 // elements involved in uploading and previewing the profile image
 const imageInput = document.getElementById(

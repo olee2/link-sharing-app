@@ -1,5 +1,5 @@
-import { authenticateUser } from "../api/authenticateUser";
-import { handleToast } from "../utils";
+import { authenticateUser } from "../api/authenticateUser.js";
+import { handleToast } from "../utils/handleToast.js";
 
 const form = document.getElementById("login-form") as HTMLFormElement;
 const email = document.getElementById("email") as HTMLInputElement;
