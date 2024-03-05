@@ -1,4 +1,4 @@
-import { Profile } from "./profile.js";
+import { Profile } from "./profile";
 
 // elements for the mobile mockup preview
 const nameContainer = document.querySelector(".mobile-name-container");

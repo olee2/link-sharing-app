@@ -1,5 +1,5 @@
-import { registerUser } from "../api/registerUser.js";
-import { handleToast } from "../utils/handleToast.js";
+import { registerUser } from "../api/registerUser";
+import { handleToast } from "../utils";
 
 const form = document.getElementById("login-form") as HTMLFormElement;
 const email = document.getElementById("email") as HTMLInputElement;
