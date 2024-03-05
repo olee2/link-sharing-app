@@ -1,4 +1,5 @@
 import { validateImage } from "../utils/validateImage.js";
+import { handleToast } from "../utils/handleToast.js";
 
 // elements involved in uploading and previewing the profile image
 const imageInput = document.getElementById(
@@ -26,6 +27,8 @@ const emailContainer = document.querySelector(".mobile-email-container");
 const mobileImageContainer = document.querySelector(
   ".mobile-image-container"
 ) as HTMLImageElement;
+
+const toastContainer = document.getElementById("toast-container");
 
 export interface Profile {
   firstName: string;
@@ -92,26 +95,37 @@ imageInput?.addEventListener("input", () => {
       const imageData = event?.target?.result;
 
       // Check if the file is a valid image
-      const isImageValid = await validateImage(file);
+      try {
+        const isImageValid = await validateImage(file);
 
-      if (isImageValid) {
-        // temp storage of the image in localstorage
-        localStorage.setItem("tempProfileImage", JSON.stringify(imageData));
+        if (isImageValid) {
+          // temp storage of the image in localstorage
+          localStorage.setItem("tempProfileImage", JSON.stringify(imageData));
 
-        // adding and displaying the image preview
-        if (imagePreview) {
-          imagePreview.classList.remove("hidden");
-          imagePreview.src = imageData as string;
-          console.log(imagePreview);
-          if (imageLabelText) {
-            imageLabelText.innerText = "Change Image";
+          // adding and displaying the image preview
+          if (imagePreview) {
+            imagePreview.classList.remove("hidden");
+            imagePreview.src = imageData as string;
+            if (imageLabelText) {
+              imageLabelText.innerText = "Change Image";
+            }
+            imageContainer?.classList.remove("text-purple");
+            imageContainer?.classList.add("text-white");
+            overlayContainer?.classList.remove("hidden");
           }
-          imageContainer?.classList.remove("text-purple");
-          imageContainer?.classList.add("text-white");
-          overlayContainer?.classList.remove("hidden");
         }
-      } else {
-        // Notify the user about invalid image
+      } catch (error) {
+        if (toastContainer) {
+          toastContainer.innerHTML = `<div class="toast toast-top">
+          <div class="alert alert-error">
+            <span>${error}</span>
+          </div>
+         </div>`;
+        }
+        const toast = document.querySelector(".toast");
+        if (toast) {
+          handleToast(toast);
+        }
       }
     };
     reader.readAsDataURL(file);
@@ -131,17 +145,21 @@ form.addEventListener("input", () => {
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const tempImage = localStorage.getItem("tempProfileImage");
+  let tempImage = localStorage.getItem("tempProfileImage");
+
+  if (tempImage) {
+    tempImage = JSON.parse(tempImage) as string;
+  } else if (storedProfile) {
+    tempImage = JSON.parse(storedProfile).image as string;
+  } else {
+    tempImage = "";
+  }
 
   const profile = {
     firstName: firstName.value,
     lastName: lastName.value,
     email: email.value || "",
     image: tempImage
-      ? JSON.parse(tempImage)
-      : storedProfile
-        ? JSON.parse(storedProfile).image
-        : ""
   };
 
   localStorage.setItem("profile", JSON.stringify(profile));

@@ -14,23 +14,23 @@ export const validateImage = (file: File): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     if (!validImageTypes.includes(file.type)) {
       // Invalid image format
-      reject(false);
+      reject(new Error("Invalid image format"));
     }
 
     const img = new Image();
     img.src = URL.createObjectURL(file);
-    img.onload = function () {
+    img.onload = () => {
       if (img.width <= 1024 && img.height <= 1024) {
         // Valid image dimensions
 
         resolve(true);
       } else {
         // Invalid image dimensions
-        reject(false);
+        reject(new Error("Invalid image dimension"));
       }
     };
-    img.onerror = function () {
-      reject(false);
+    img.onerror = () => {
+      reject(new Error("An error occured while validating image"));
     };
   });
 };
