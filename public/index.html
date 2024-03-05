@@ -164,27 +164,14 @@
             </div>
             <div class="flex flex-col w-full">
               <label
-                for="countries"
                 class="block mb-1 text-bs text-grey font-semibold self-start"
                 >Platform</label
               >
-              <select
-                id="platforms"
-                class="bg-gray-50 border border-borders select-md text-grey text-sm rounded-lg focus:ring-0 focus:border-borders block w-full p-2.5"
-              >
-                <option selected>Choose a platform</option>
-                <option
-                  style="
-                    background-image: url(&quot;./images/icon-github.svg&quot;);
-                  "
-                  value="github"
-                >
-                  Github
-                </option>
-                <option value="frontendMentor">Frontend Mentor</option>
-                <option value="twitter">Twitter</option>
-                <option value="linkedin">LinkedIn</option>
-              </select>
+
+              <div
+                id="select"
+                class="w-full relative border border-borders bg-white rounded-md h-10 flex items-center justify-between p-3"
+              ></div>
             </div>
           </div>
           <div

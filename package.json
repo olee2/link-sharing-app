@@ -27,5 +27,8 @@
     "dev": "concurrently \"npm:ts\" \"npm:serve\" \"npx tailwindcss -i ./src/main.css -o ./public/main.css --watch\"",
     "lint": "eslint . --ext .ts",
     "test": "jest"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   }
 }
