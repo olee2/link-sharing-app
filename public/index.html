@@ -92,9 +92,9 @@
     </header>
     <main class="flex flex-1 gap-4 max-sm:m-4">
       <div
-        class="bg-white flex-1 flex items-center justify-center max-lg:hidden rounded-md"
+        class="bg-white flex-1 flex items-start justify-center max-lg:hidden rounded-md"
       >
-        <div class="phone">
+        <div class="phone mt-48">
           <div class="phone-inner">
             <div class="camera"></div>
             <div
@@ -136,57 +136,27 @@
             the world!
           </p>
           <button
+            id="add-link-btn"
             class="border-purple w-full mb-5 mt-10 rounded-md border text-purple justify-center font-semibold hover:bg-purpleLight px-6 py-2"
           >
             + Add new link
           </button>
 
-          <div
-            class="flex justify-center items-center flex-col bg-greyLight p-5 rounded-md mb-10 gap-4"
-          >
+          <div id="add-link-container" class="flex flex-col gap-4 flex-1">
             <div
-              class="flex w-full items-center justify-between font-bold text-bm text-grey"
+              class="flex-1 flex justify-center items-center flex-col bg-greyLight p-5 rounded-md"
             >
-              <div class="flex items-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="12"
-                  height="6"
-                  fill="none"
-                  viewBox="0 0 12 6"
-                  class="label-svg"
-                >
-                  <path fill="#737373" d="M0 0h12v1H0zM0 5h12v1H0z" />
-                </svg>
-                <p>Link #1</p>
+              <img src="images/illustration-empty.svg" alt="" class="w-64" />
+              <div class="max-w-md text-center">
+                <h2 class="text-hm mb-2 font-bold text-greyDark">
+                  Let's get you started
+                </h2>
+                <p>
+                  Use the “Add new link” button to get started. Once you have
+                  more than one link, you can reorder and edit them. We’re here
+                  to help you share your profiles with everyone!
+                </p>
               </div>
-              <p class="font-normal">Remove</p>
-            </div>
-            <div class="flex flex-col w-full">
-              <label
-                class="block mb-1 text-bs text-grey font-semibold self-start"
-                >Platform</label
-              >
-
-              <div
-                id="select"
-                class="w-full relative border border-borders bg-white rounded-md h-10 flex items-center justify-between p-3"
-              ></div>
-            </div>
-          </div>
-          <div
-            class="flex-1 flex justify-center items-center flex-col bg-greyLight p-5 rounded-md"
-          >
-            <img src="images/illustration-empty.svg" alt="" class="w-64" />
-            <div class="max-w-md text-center">
-              <h2 class="text-hm mb-2 font-bold text-greyDark">
-                Let's get you started
-              </h2>
-              <p>
-                Use the “Add new link” button to get started. Once you have more
-                than one link, you can reorder and edit them. We’re here to help
-                you share your profiles with everyone!
-              </p>
             </div>
           </div>
         </div>
