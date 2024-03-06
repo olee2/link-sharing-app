@@ -39,7 +39,7 @@ const selectHtml = `
                   </svg>
                 <div
                       id="select-list"
-                      class="w-full overflow-scroll max-h-60 bg-white border absolute top-9 border-borders right-0 p-0 hidden"
+                      class="w-full overflow-y-scroll max-h-60 bg-white border absolute top-9 border-borders right-0 p-0 hidden"
                       >
                       <ul class="flex flex-col p-0">
                       ${platforms

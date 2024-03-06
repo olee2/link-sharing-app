@@ -2230,6 +2230,10 @@ html {
   max-height: 15rem;
 }
 
+.min-h-svh {
+  min-height: 100svh;
+}
+
 .w-24 {
   width: 6rem;
 }
@@ -2330,6 +2334,10 @@ html {
 
 .overflow-scroll {
   overflow: scroll;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
 }
 
 .rounded-full {
@@ -2559,6 +2567,30 @@ html {
 
 .label-svg path {
   fill: currentColor;
+}
+
+/* width */
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  background: #fafafa;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: #737373;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
 }
 
 .placeholder\:text-greyDark::-moz-placeholder {
