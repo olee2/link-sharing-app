@@ -1,130 +1,79 @@
+import { createAddLinkHtml } from "../components/createAddLinkHtml.js";
 // elements for the mobile mockup preview
 const nameContainer = document.querySelector(".mobile-name-container");
 const emailContainer = document.querySelector(".mobile-email-container");
 const mobileImageContainer = document.querySelector(".mobile-image-container");
 const addLinkContainer = document.getElementById("add-link-container");
 const addLinkBtn = document.getElementById("add-link-btn");
-const platforms = [
-    "codepen",
-    "codewars",
-    "devto",
-    "facebook",
-    "freecodecamp",
-    "frontend-mentor",
-    "github",
-    "gitlab",
-    "hashnode",
-    "linkedin",
-    "stack-overflow",
-    "twitch",
-    "twitter",
-    "youtube"
-];
-let addLinkCount = 0;
-const addLinkHtmlArray = [];
+let linkArray = [];
 addLinkBtn === null || addLinkBtn === void 0 ? void 0 : addLinkBtn.addEventListener("click", () => {
-    addLinkCount += 1;
-    addLinkHtmlArray.push(`
-      <div
-      class="flex justify-center items-center flex-col bg-greyLight p-5 rounded-md  gap-4"
-      >
-      <div
-        class="flex w-full items-center justify-between font-bold text-bm text-grey"
-      >
-        <div class="flex items-center gap-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="6"
-            fill="none"
-            viewBox="0 0 12 6"
-            class="label-svg"
-          >
-            <path fill="#737373" d="M0 0h12v1H0zM0 5h12v1H0z" />
-          </svg>
-          <p>Link #${addLinkCount}</p>
-        </div>
-        <p class="font-normal">Remove</p>
-      </div>
-      
-      <div class="flex flex-col w-full gap-5">
-        <div>
-          <label
-            class="block mb-1 text-bs text-grey font-semibold self-start"
-            >Platform</label
-          >
-          <div
-            id="select-${addLinkCount}"
-            class="w-full relative border border-borders bg-white rounded-md h-10 flex items-center justify-between px-3 py-6"
-          > <span id="current-selected-${addLinkCount}" class="flex gap-3">Choose Platform</span>
-          <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="14"
-          height="9"
-          fill="none"
-          viewBox="0 0 14 9"
-          >
-            <path stroke="#633CFF" stroke-width="2" d="m1 1 6 6 6-6" />
-          </svg>
-          <div
-          id="select-list-${addLinkCount}"
-          class="w-full overflow-y-scroll max-h-60 bg-white border absolute top-12 border-borders right-0 p-0 hidden"
-          >
-            <ul class="flex flex-col p-0">
-            ${platforms
-        .map((platform) => {
-        return `<li
-                id="${platform}"
-                class="flex gap-2 p-2 hover:bg-greyLight cursor-default"
-            >
-              <img src="./images/icon-${platform}.svg" alt="${platform} logo" />
-              <span class="capitalize">${platform}</span>
-            </li>`;
-    })
-        .join("")}
-              
-            </ul>
-          </div></div>
-        </div>
-      
-        <div class="flex flex-col w-full">
-          <label
-            class="block mb-1 text-bs text-grey font-semibold self-start"
-            >Link</label
-          >
-          <div class="bg-white">
-            <input
-           
-              class="block w-full border-borders rounded-md p-3 pl-10 placeholder:text-greyDark placeholder:text-opacity-50 focus:ring-0 focus:shadow-activeSelection focus:ring-inset focus:ring-purple link-input"
-              type="url"
-              id="first-name"
-              placeholder="e.g. https://www.github.com/johnappleseed"
-            />
-          </div>
-        </div>
-      </div>
-      </div>
-      `);
+    // Adding a link object when button is clicked
+    linkArray.push({
+        platform: "",
+        url: ""
+    });
+    // Creating add link select and input for each of the objects in the array
     if (addLinkContainer != null) {
-        if (addLinkCount === 1) {
-            addLinkContainer.innerHTML =
-                addLinkHtmlArray[addLinkHtmlArray.length - 1];
-        }
-        else {
-            addLinkContainer.innerHTML +=
-                addLinkHtmlArray[addLinkHtmlArray.length - 1];
-        }
+        addLinkContainer.innerHTML = linkArray
+            .map((_, index) => createAddLinkHtml(index))
+            .join("");
     }
-    for (let i = 1; i <= addLinkCount; i += 1) {
+    // Adding event listeners to the html that is generated based on the objects in the array
+    for (let i = 0; i <= linkArray.length; i += 1) {
+        // Container to display the currently selected platform
         const currentSelected = document.getElementById(`current-selected-${i}`);
+        // Container for the list of options for the select
+        const selectList = document.getElementById(`select-list-${i}`);
+        // Select platform input
         const select = document.getElementById(`select-${i}`);
+        // Link url input
+        const linkInput = document.getElementById(`link-${i}`);
+        // Invalid warning
+        const invalidLinkInput = document.getElementById(`invalid-link-${i}`);
+        // Remove btn
+        const removeBtn = document.getElementById(`remove-${i}`);
+        removeBtn === null || removeBtn === void 0 ? void 0 : removeBtn.addEventListener("click", () => { });
+        // Adding event listener to url input to and update the corresponding object in array on input
+        linkInput === null || linkInput === void 0 ? void 0 : linkInput.addEventListener("input", (e) => {
+            if ((e === null || e === void 0 ? void 0 : e.target) instanceof HTMLInputElement) {
+                linkArray[i].url = e.target.value;
+                console.log(e.target.checkValidity());
+                if (!e.target.checkValidity()) {
+                    invalidLinkInput === null || invalidLinkInput === void 0 ? void 0 : invalidLinkInput.classList.remove("hidden");
+                }
+                else {
+                    invalidLinkInput === null || invalidLinkInput === void 0 ? void 0 : invalidLinkInput.classList.add("hidden");
+                }
+            }
+        });
+        //Update url input if there is any value stored in the corresponding object in the array
+        if (linkArray &&
+            linkArray.length &&
+            linkArray[i] &&
+            linkArray[i].url &&
+            linkArray[i].url.length !== 0) {
+            if (currentSelected) {
+                linkInput.value = linkArray[i].url;
+            }
+        }
+        //Update selected platform if there is any platform stored in the corresponding object in the array
+        if (linkArray[i].platform.length !== 0) {
+            if (currentSelected) {
+                currentSelected.innerHTML = ` <img src="./images/icon-${linkArray[i].platform}.svg" alt="${linkArray[i].platform} logo" />
+                                      <span class="capitalize">${linkArray[i].platform}</span>`;
+            }
+        }
+        // A function to handle when a platform is choosen
         const setPlatform = (platformId) => {
             if (currentSelected) {
+                // Updating the container displaying choosen platform
                 currentSelected.innerHTML = ` <img src="./images/icon-${platformId}.svg" alt="${platformId} logo" />
                                       <span class="capitalize">${platformId}</span>`;
             }
+            // Updating the link object in the link array
+            const storedLinkObject = linkArray[i];
+            storedLinkObject.platform = platformId;
         };
-        const selectList = document.getElementById(`select-list-${i}`);
         // Listen for clicks outside of the select in order to hide the select items list
         document.addEventListener("click", (e) => {
             const { target } = e;
@@ -163,5 +112,4 @@ const storedProfile = localStorage.getItem("profile");
 if (storedProfile) {
     updateUIWithData(JSON.parse(storedProfile));
 }
-export {};
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiLi4vc3JjLyIsInNvdXJjZXMiOlsicGFnZXMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUEseUNBQXlDO0FBQ3pDLE1BQU0sYUFBYSxHQUFHLFFBQVEsQ0FBQyxhQUFhLENBQUMsd0JBQXdCLENBQUMsQ0FBQztBQUN2RSxNQUFNLGNBQWMsR0FBRyxRQUFRLENBQUMsYUFBYSxDQUFDLHlCQUF5QixDQUFDLENBQUM7QUFDekUsTUFBTSxvQkFBb0IsR0FBRyxRQUFRLENBQUMsYUFBYSxDQUNqRCx5QkFBeUIsQ0FDTixDQUFDO0FBQ3RCLE1BQU0sZ0JBQWdCLEdBQUcsUUFBUSxDQUFDLGNBQWMsQ0FBQyxvQkFBb0IsQ0FBQyxDQUFDO0FBQ3ZFLE1BQU0sVUFBVSxHQUFHLFFBQVEsQ0FBQyxjQUFjLENBQUMsY0FBYyxDQUFDLENBQUM7QUFFM0QsTUFBTSxTQUFTLEdBQUc7SUFDaEIsU0FBUztJQUNULFVBQVU7SUFDVixPQUFPO0lBQ1AsVUFBVTtJQUNWLGNBQWM7SUFDZCxpQkFBaUI7SUFDakIsUUFBUTtJQUNSLFFBQVE7SUFDUixVQUFVO0lBQ1YsVUFBVTtJQUNWLGdCQUFnQjtJQUNoQixRQUFRO0lBQ1IsU0FBUztJQUNULFNBQVM7Q0FDVixDQUFDO0FBRUYsSUFBSSxZQUFZLEdBQUcsQ0FBQyxDQUFDO0FBQ3JCLE1BQU0sZ0JBQWdCLEdBQWEsRUFBRSxDQUFDO0FBRXRDLFVBQVUsYUFBVixVQUFVLHVCQUFWLFVBQVUsQ0FBRSxnQkFBZ0IsQ0FBQyxPQUFPLEVBQUUsR0FBRyxFQUFFO0lBQ3pDLFlBQVksSUFBSSxDQUFDLENBQUM7SUFFbEIsZ0JBQWdCLENBQUMsSUFBSSxDQUFDOzs7Ozs7Ozs7Ozs7Ozs7Ozs7cUJBa0JILFlBQVk7Ozs7Ozs7Ozs7Ozt5QkFZUixZQUFZOzt5Q0FFSSxZQUFZOzs7Ozs7Ozs7Ozs0QkFXekIsWUFBWTs7OztjQUkxQixTQUFTO1NBQ1IsR0FBRyxDQUFDLENBQUMsUUFBUSxF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
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiLi4vc3JjLyIsInNvdXJjZXMiOlsicGFnZXMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0EsT0FBTyxFQUFFLGlCQUFpQixFQUFFLE1BQU0sb0NBQW9DLENBQUM7QUFFdkUseUNBQXlDO0FBQ3pDLE1BQU0sYUFBYSxHQUFHLFFBQVEsQ0FBQyxhQUFhLENBQUMsd0JBQXdCLENBQUMsQ0FBQztBQUN2RSxNQUFNLGNBQWMsR0FBRyxRQUFRLENBQUMsYUFBYSxDQUFDLHlCQUF5QixDQUFDLENBQUM7QUFDekUsTUFBTSxvQkFBb0IsR0FBRyxRQUFRLENBQUMsYUFBYSxDQUNqRCx5QkFBeUIsQ0FDTixDQUFDO0FBQ3RCLE1BQU0sZ0JBQWdCLEdBQUcsUUFBUSxDQUFDLGNBQWMsQ0FBQyxvQkFBb0IsQ0FBQyxDQUFDO0FBQ3ZFLE1BQU0sVUFBVSxHQUFHLFFBQVEsQ0FBQyxjQUFjLENBQUMsY0FBYyxDQUFDLENBQUM7QUFPM0QsSUFBSSxTQUFTLEdBQVcsRUFBRSxDQUFDO0FBRTNCLFVBQVUsYUFBVixVQUFVLHVCQUFWLFVBQVUsQ0FBRSxnQkFBZ0IsQ0FBQyxPQUFPLEVBQUUsR0FBRyxFQUFFO0lBQ3pDLDhDQUE4QztJQUM5QyxTQUFTLENBQUMsSUFBSSxDQUFDO1FBQ2IsUUFBUSxFQUFFLEVBQUU7UUFDWixHQUFHLEVBQUUsRUFBRTtLQUNSLENBQUMsQ0FBQztJQUVILDBFQUEwRTtJQUMxRSxJQUFJLGdCQUFnQixJQUFJLElBQUksRUFBRSxDQUFDO1FBQzdCLGdCQUFnQixDQUFDLFNBQVMsR0FBRyxTQUFTO2FBQ25DLEdBQUcsQ0FBQyxDQUFDLENBQUMsRUFBRSxLQUFLLEVBQUUsRUFBRSxDQUFDLGlCQUFpQixDQUFDLEtBQUssQ0FBQyxDQUFDO2FBQzNDLElBQUksQ0FBQyxFQUFFLENBQUMsQ0FBQztJQUNkLENBQUM7SUFFRCx5RkFBeUY7SUFDekYsS0FBSyxJQUFJLENBQUMsR0FBRyxDQUFDLEVBQUUs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

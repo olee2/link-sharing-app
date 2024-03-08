@@ -1,4 +1,5 @@
 import { Profile } from "./profile.js";
+import { createAddLinkHtml } from "../components/createAddLinkHtml.js";
 
 // elements for the mobile mockup preview
 const nameContainer = document.querySelector(".mobile-name-container");
@@ -9,130 +10,89 @@ const mobileImageContainer = document.querySelector(
 const addLinkContainer = document.getElementById("add-link-container");
 const addLinkBtn = document.getElementById("add-link-btn");
 
-const platforms = [
-  "codepen",
-  "codewars",
-  "devto",
-  "facebook",
-  "freecodecamp",
-  "frontend-mentor",
-  "github",
-  "gitlab",
-  "hashnode",
-  "linkedin",
-  "stack-overflow",
-  "twitch",
-  "twitter",
-  "youtube"
-];
+interface Link {
+  platform: string;
+  url: string;
+}
 
-let addLinkCount = 0;
-const addLinkHtmlArray: string[] = [];
+let linkArray: Link[] = [];
 
 addLinkBtn?.addEventListener("click", () => {
-  addLinkCount += 1;
+  // Adding a link object when button is clicked
+  linkArray.push({
+    platform: "",
+    url: ""
+  });
 
-  addLinkHtmlArray.push(`
-      <div
-      class="flex justify-center items-center flex-col bg-greyLight p-5 rounded-md  gap-4"
-      >
-      <div
-        class="flex w-full items-center justify-between font-bold text-bm text-grey"
-      >
-        <div class="flex items-center gap-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="6"
-            fill="none"
-            viewBox="0 0 12 6"
-            class="label-svg"
-          >
-            <path fill="#737373" d="M0 0h12v1H0zM0 5h12v1H0z" />
-          </svg>
-          <p>Link #${addLinkCount}</p>
-        </div>
-        <p class="font-normal">Remove</p>
-      </div>
-      
-      <div class="flex flex-col w-full gap-5">
-        <div>
-          <label
-            class="block mb-1 text-bs text-grey font-semibold self-start"
-            >Platform</label
-          >
-          <div
-            id="select-${addLinkCount}"
-            class="w-full relative border border-borders bg-white rounded-md h-10 flex items-center justify-between px-3 py-6"
-          > <span id="current-selected-${addLinkCount}" class="flex gap-3">Choose Platform</span>
-          <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="14"
-          height="9"
-          fill="none"
-          viewBox="0 0 14 9"
-          >
-            <path stroke="#633CFF" stroke-width="2" d="m1 1 6 6 6-6" />
-          </svg>
-          <div
-          id="select-list-${addLinkCount}"
-          class="w-full overflow-y-scroll max-h-60 bg-white border absolute top-12 border-borders right-0 p-0 hidden"
-          >
-            <ul class="flex flex-col p-0">
-            ${platforms
-              .map((platform) => {
-                return `<li
-                id="${platform}"
-                class="flex gap-2 p-2 hover:bg-greyLight cursor-default"
-            >
-              <img src="./images/icon-${platform}.svg" alt="${platform} logo" />
-              <span class="capitalize">${platform}</span>
-            </li>`;
-              })
-              .join("")}
-              
-            </ul>
-          </div></div>
-        </div>
-      
-        <div class="flex flex-col w-full">
-          <label
-            class="block mb-1 text-bs text-grey font-semibold self-start"
-            >Link</label
-          >
-          <div class="bg-white">
-            <input
-           
-              class="block w-full border-borders rounded-md p-3 pl-10 placeholder:text-greyDark placeholder:text-opacity-50 focus:ring-0 focus:shadow-activeSelection focus:ring-inset focus:ring-purple link-input"
-              type="url"
-              id="first-name"
-              placeholder="e.g. https://www.github.com/johnappleseed"
-            />
-          </div>
-        </div>
-      </div>
-      </div>
-      `);
-
+  // Creating add link select and input for each of the objects in the array
   if (addLinkContainer != null) {
-    if (addLinkCount === 1) {
-      addLinkContainer.innerHTML =
-        addLinkHtmlArray[addLinkHtmlArray.length - 1];
-    } else {
-      addLinkContainer.innerHTML +=
-        addLinkHtmlArray[addLinkHtmlArray.length - 1];
-    }
+    addLinkContainer.innerHTML = linkArray
+      .map((_, index) => createAddLinkHtml(index))
+      .join("");
   }
-  for (let i = 1; i <= addLinkCount; i += 1) {
+
+  // Adding event listeners to the html that is generated based on the objects in the array
+  for (let i = 0; i <= linkArray.length; i += 1) {
+    // Container to display the currently selected platform
     const currentSelected = document.getElementById(`current-selected-${i}`);
+    // Container for the list of options for the select
+    const selectList = document.getElementById(`select-list-${i}`);
+    // Select platform input
     const select = document.getElementById(`select-${i}`);
+    // Link url input
+    const linkInput = document.getElementById(`link-${i}`) as HTMLInputElement;
+    // Invalid warning
+    const invalidLinkInput = document.getElementById(`invalid-link-${i}`);
+    // Remove btn
+    const removeBtn = document.getElementById(`remove-${i}`);
+
+    removeBtn?.addEventListener("click", () => {});
+
+    // Adding event listener to url input to and update the corresponding object in array on input
+    linkInput?.addEventListener("input", (e) => {
+      if (e?.target instanceof HTMLInputElement) {
+        linkArray[i].url = e.target.value;
+        console.log(e.target.checkValidity());
+        if (!e.target.checkValidity()) {
+          invalidLinkInput?.classList.remove("hidden");
+        } else {
+          invalidLinkInput?.classList.add("hidden");
+        }
+      }
+    });
+
+    //Update url input if there is any value stored in the corresponding object in the array
+    if (
+      linkArray &&
+      linkArray.length &&
+      linkArray[i] &&
+      linkArray[i].url &&
+      linkArray[i].url.length !== 0
+    ) {
+      if (currentSelected) {
+        linkInput.value = linkArray[i].url;
+      }
+    }
+
+    //Update selected platform if there is any platform stored in the corresponding object in the array
+    if (linkArray[i].platform.length !== 0) {
+      if (currentSelected) {
+        currentSelected.innerHTML = ` <img src="./images/icon-${linkArray[i].platform}.svg" alt="${linkArray[i].platform} logo" />
+                                      <span class="capitalize">${linkArray[i].platform}</span>`;
+      }
+    }
+
+    // A function to handle when a platform is choosen
     const setPlatform = (platformId: string) => {
       if (currentSelected) {
+        // Updating the container displaying choosen platform
         currentSelected.innerHTML = ` <img src="./images/icon-${platformId}.svg" alt="${platformId} logo" />
                                       <span class="capitalize">${platformId}</span>`;
       }
+      // Updating the link object in the link array
+      const storedLinkObject = linkArray[i];
+      storedLinkObject.platform = platformId;
     };
-    const selectList = document.getElementById(`select-list-${i}`);
 
     // Listen for clicks outside of the select in order to hide the select items list
     document.addEventListener("click", (e) => {
