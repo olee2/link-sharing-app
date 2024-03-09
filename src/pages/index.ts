@@ -7,7 +7,7 @@ const emailContainer = document.querySelector(".mobile-email-container");
 const mobileImageContainer = document.querySelector(
   ".mobile-image-container"
 ) as HTMLImageElement;
-const addLinkContainer = document.getElementById("add-link-container");
+const addLinkForm = document.getElementById("add-link-form");
 const addLinkBtn = document.getElementById("add-link-btn");
 
 interface Link {
@@ -19,8 +19,8 @@ let linkArray: Link[] = [];
 
 const handleEvent = () => {
   // Creating add link select and input for each of the objects in the array
-  if (addLinkContainer != null) {
-    addLinkContainer.innerHTML = linkArray
+  if (addLinkForm != null) {
+    addLinkForm.innerHTML = linkArray
       .map((_, index) => createAddLinkHtml(index))
       .join("");
   }

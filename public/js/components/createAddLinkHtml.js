@@ -64,9 +64,9 @@ export const createAddLinkHtml = (num) => {
    </div>
  
    <div class="flex flex-col w-full">
-     <div class="flex justify-between">
+     <div class="flex justify-between flex-wrap">
       <label class="block mb-1 text-bs text-grey font-semibold self-start">Link</label>
-      <p id="invalid-link-${num}" class="text-red text-bs hidden">Enter a valid URL (e.g. https://www.github.com/johnappleseed)</p>
+      <p id="invalid-link-${num}" class="text-red text-bs hidden">Enter a valid URL</p>
      </div>
      
      
