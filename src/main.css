@@ -84,3 +84,7 @@
 .link-input {
   background: transparent url("./images/icon-link.svg") no-repeat 13px center;
 }
+
+.colored-icon {
+  filter: brightness(0) invert(1);
+}

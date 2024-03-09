@@ -115,7 +115,8 @@
               ></div>
             </div>
             <div
-              class="mobile-links mt-10 flex flex-col justify-center items-center gap-4"
+              id="mobile-links-container"
+              class="mt-10 flex flex-col justify-center items-center gap-4"
             >
               <div class="w-60 h-11 bg-greyLight rounded-md"></div>
               <div class="w-60 h-11 bg-greyLight rounded-md"></div>
@@ -126,7 +127,7 @@
           </div>
         </div>
       </div>
-      <div class="bg-white flex flex-1 flex-col rounded-md">
+      <form id="add-link-form" class="bg-white flex flex-1 flex-col rounded-md">
         <div class="p-5 sm:p-10 flex-1 flex flex-col">
           <h1 class="text-hm mb-2 font-bold text-greyDark">
             Customize you links
@@ -137,11 +138,12 @@
           </p>
           <button
             id="add-link-btn"
+            type="button"
             class="border-purple w-full mb-5 mt-10 rounded-md border text-purple justify-center font-semibold hover:bg-purpleLight px-6 py-2"
           >
             + Add new link
           </button>
-          <form id="add-link-form" class="flex flex-col gap-4 flex-1">
+          <div id="add-link-container" class="flex flex-col gap-4 flex-1">
             <div
               class="flex-1 flex justify-center items-center flex-col bg-greyLight p-5 rounded-md"
             >
@@ -157,17 +159,18 @@
                 </p>
               </div>
             </div>
-          </form>
+          </div>
         </div>
         <hr class="border-borders" />
         <button
           disabled
+          id="submit-btn"
           type="submit"
           class="transition ease-in-out bg-purple text-white hover:bg-purpleHover hover:shadow-activeSelection disabled:bg-purpleLight m-5 sm:mr-10 font-bold rounded-md lg:self-end px-6 py-2"
         >
           Save
         </button>
-      </div>
+      </form>
     </main>
     <script src="./js/pages/index.js" type="module" async defer></script>
   </body>
