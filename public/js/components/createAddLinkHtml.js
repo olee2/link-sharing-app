@@ -20,7 +20,7 @@ export const createAddLinkHtml = (num) => {
      </svg>
      <p>Link #${num}</p>
    </div>
-   <p id=remove-${num} class="font-normal">Remove</p>
+   <p id=remove-${num} class="font-normal cursor-pointer">Remove</p>
  </div>
  
  <div class="flex flex-col w-full gap-5">

@@ -17,13 +17,7 @@ interface Link {
 
 let linkArray: Link[] = [];
 
-addLinkBtn?.addEventListener("click", () => {
-  // Adding a link object when button is clicked
-  linkArray.push({
-    platform: "",
-    url: ""
-  });
-
+const handleEvent = () => {
   // Creating add link select and input for each of the objects in the array
   if (addLinkContainer != null) {
     addLinkContainer.innerHTML = linkArray
@@ -31,8 +25,7 @@ addLinkBtn?.addEventListener("click", () => {
       .join("");
   }
 
-  // Adding event listeners to the html that is generated based on the objects in the array
-  for (let i = 0; i <= linkArray.length; i += 1) {
+  linkArray.forEach((link, i) => {
     // Container to display the currently selected platform
     const currentSelected = document.getElementById(`current-selected-${i}`);
     // Container for the list of options for the select
@@ -46,13 +39,22 @@ addLinkBtn?.addEventListener("click", () => {
     // Remove btn
     const removeBtn = document.getElementById(`remove-${i}`);
 
-    removeBtn?.addEventListener("click", () => {});
+    // A function to handle when a platform is choosen
+    const setPlatform = (platformId: string) => {
+      if (currentSelected) {
+        // Updating the container displaying choosen platform
+        currentSelected.innerHTML = ` <img src="./images/icon-${platformId}.svg" alt="${platformId} logo" />
+                                        <span class="capitalize">${platformId}</span>`;
+      }
+      // Updating the link object in the link array
+      const storedLinkObject = linkArray[i];
+      storedLinkObject.platform = platformId;
+    };
 
     // Adding event listener to url input to and update the corresponding object in array on input
     linkInput?.addEventListener("input", (e) => {
       if (e?.target instanceof HTMLInputElement) {
-        linkArray[i].url = e.target.value;
-        console.log(e.target.checkValidity());
+        link.url = e.target.value;
         if (!e.target.checkValidity()) {
           invalidLinkInput?.classList.remove("hidden");
         } else {
@@ -61,38 +63,20 @@ addLinkBtn?.addEventListener("click", () => {
       }
     });
 
-    //Update url input if there is any value stored in the corresponding object in the array
-    if (
-      linkArray &&
-      linkArray.length &&
-      linkArray[i] &&
-      linkArray[i].url &&
-      linkArray[i].url.length !== 0
-    ) {
+    // Update url input if there is any value stored in the corresponding object in the array
+    if (link.url.length > 0) {
       if (currentSelected) {
-        linkInput.value = linkArray[i].url;
+        linkInput.value = link.url;
       }
     }
 
-    //Update selected platform if there is any platform stored in the corresponding object in the array
-    if (linkArray[i].platform.length !== 0) {
+    // Update selected platform if there is any platform stored in the corresponding object in the array
+    if (link.platform.length > 0) {
       if (currentSelected) {
-        currentSelected.innerHTML = ` <img src="./images/icon-${linkArray[i].platform}.svg" alt="${linkArray[i].platform} logo" />
-                                      <span class="capitalize">${linkArray[i].platform}</span>`;
+        currentSelected.innerHTML = ` <img src="./images/icon-${link.platform}.svg" alt="${link.platform} logo" />
+            <span class="capitalize">${link.platform}</span>`;
       }
     }
-
-    // A function to handle when a platform is choosen
-    const setPlatform = (platformId: string) => {
-      if (currentSelected) {
-        // Updating the container displaying choosen platform
-        currentSelected.innerHTML = ` <img src="./images/icon-${platformId}.svg" alt="${platformId} logo" />
-                                      <span class="capitalize">${platformId}</span>`;
-      }
-      // Updating the link object in the link array
-      const storedLinkObject = linkArray[i];
-      storedLinkObject.platform = platformId;
-    };
 
     // Listen for clicks outside of the select in order to hide the select items list
     document.addEventListener("click", (e) => {
@@ -115,7 +99,22 @@ addLinkBtn?.addEventListener("click", () => {
     select?.addEventListener("click", () => {
       selectList?.classList.toggle("hidden");
     });
-  }
+
+    removeBtn?.addEventListener("click", () => {
+      linkArray = linkArray.filter((_, index) => index !== i);
+      handleEvent();
+    });
+  });
+};
+
+addLinkBtn?.addEventListener("click", () => {
+  // Adding a link object when button is clicked
+  linkArray.push({
+    platform: "",
+    url: ""
+  });
+
+  handleEvent();
 });
 
 const updateUIWithData = (profile: Profile) => {
