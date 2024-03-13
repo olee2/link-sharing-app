@@ -44,6 +44,55 @@ const urlRegex =
 
 let linkArray: Link[] = [];
 
+const mobileLinksContainer = document.getElementById("mobile-links-container");
+
+const updateUIWithData = (profile: Profile, links?: Link[]) => {
+  if (nameContainer && profile.firstName && profile.lastName) {
+    nameContainer.innerHTML = `<p>${profile.firstName} ${profile.lastName}</p>`;
+
+    nameContainer.classList.remove("bg-greyLight");
+  }
+
+  if (emailContainer && profile.email) {
+    emailContainer.innerHTML = `<p>${profile.email}</p>`;
+
+    emailContainer.classList.remove("bg-greyLight");
+  }
+
+  if (mobileImageContainer && profile.image) {
+    mobileImageContainer.src = profile.image;
+    mobileImageContainer.classList.remove("hidden");
+  }
+
+  if (mobileLinksContainer && links) {
+    mobileLinksContainer.innerHTML = links
+      .map((link, index) => {
+        return `
+        <div id="button-${index}" style="background-color: ${platformsMap[link.platform].color}" class="cursor-pointer w-60 px-4 h-11 rounded-md flex justify-between items-center">
+          <div class="flex gap-2 items-center">
+            <img class="colored-icon" src="./images/icon-${link.platform}.svg"/>
+            <span class="capitalize text-bm text-white">${platformsMap[link.platform].name}</span>
+          </div>
+          <img class="colored-icon" src="./images/icon-arrow-right.svg" />
+        </div>`;
+      })
+      .join("");
+
+    if (links.length < 5) {
+      for (let i = 0; i < 5 - links.length; i += 1) {
+        mobileLinksContainer.innerHTML += `<div class="w-60 h-11 bg-greyLight rounded-md"></div>`;
+      }
+    }
+  }
+};
+
+// if there is a stored profile in localstorage the form and mockup are populated accordingly
+const storedProfile = localStorage.getItem("profile");
+
+if (storedProfile) {
+  updateUIWithData(JSON.parse(storedProfile));
+}
+
 const handleEvent = () => {
   // Disabling submit btn if no links are added
   submitBtn.disabled = !(linkArray.length > 0);
@@ -138,6 +187,9 @@ const handleEvent = () => {
 
     removeBtn?.addEventListener("click", () => {
       linkArray = linkArray.filter((_, index) => index !== i);
+      if (storedProfile) {
+        updateUIWithData(JSON.parse(storedProfile), linkArray);
+      }
       handleEvent();
     });
   });
@@ -152,55 +204,6 @@ addLinkBtn?.addEventListener("click", () => {
 
   handleEvent();
 });
-
-const mobileLinksContainer = document.getElementById("mobile-links-container");
-
-const updateUIWithData = (profile: Profile, links?: Link[]) => {
-  if (nameContainer && profile.firstName && profile.lastName) {
-    nameContainer.innerHTML = `<p>${profile.firstName} ${profile.lastName}</p>`;
-
-    nameContainer.classList.remove("bg-greyLight");
-  }
-
-  if (emailContainer && profile.email) {
-    emailContainer.innerHTML = `<p>${profile.email}</p>`;
-
-    emailContainer.classList.remove("bg-greyLight");
-  }
-
-  if (mobileImageContainer && profile.image) {
-    mobileImageContainer.src = profile.image;
-    mobileImageContainer.classList.remove("hidden");
-  }
-
-  if (mobileLinksContainer && links && links.length > 0) {
-    mobileLinksContainer.innerHTML = links
-      .map((link, index) => {
-        return `
-        <div id="button-${index}" style="background-color: ${platformsMap[link.platform].color}" class="cursor-pointer w-60 px-4 h-11 rounded-md flex justify-between items-center">
-          <div class="flex gap-2 items-center">
-            <img class="colored-icon" src="./images/icon-${link.platform}.svg"/>
-            <span class="capitalize text-bm text-white">${platformsMap[link.platform].name}</span>
-          </div>
-          <img class="colored-icon" src="./images/icon-arrow-right.svg" />
-        </div>`;
-      })
-      .join("");
-
-    if (links.length < 5) {
-      for (let i = 0; i < 5 - links.length; i += 1) {
-        mobileLinksContainer.innerHTML += `<div class="w-60 h-11 bg-greyLight rounded-md"></div>`;
-      }
-    }
-  }
-};
-
-// if there is a stored profile in localstorage the form and mockup are populated accordingly
-const storedProfile = localStorage.getItem("profile");
-
-if (storedProfile) {
-  updateUIWithData(JSON.parse(storedProfile));
-}
 
 addLinkForm?.addEventListener("submit", (event) => {
   event.preventDefault();
