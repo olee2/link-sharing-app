@@ -67,8 +67,8 @@ const updateUIWithData = (profile: Profile, links?: Link[]) => {
   if (mobileLinksContainer && links) {
     mobileLinksContainer.innerHTML = links
       .map((link, index) => {
-        if (!link.platform) return;
-        return `
+        if (link.platform) {
+          return `
         <div id="button-${index}" style="background-color: ${platformsMap[link.platform].color}" class="cursor-pointer w-60 px-4 h-11 rounded-md flex justify-between items-center">
           <div class="flex gap-2 items-center">
             <img class="colored-icon" src="./images/icon-${link.platform}.svg"/>
@@ -76,6 +76,8 @@ const updateUIWithData = (profile: Profile, links?: Link[]) => {
           </div>
           <img class="colored-icon" src="./images/icon-arrow-right.svg" />
         </div>`;
+        }
+        return "";
       })
       .join("");
 
@@ -154,16 +156,16 @@ const handleEvent = () => {
     });
 
     // Add event listeners to the input field
-    dragBtn?.addEventListener("mousedown", (event) => {
+    dragBtn?.addEventListener("mousedown", () => {
       if (!dragContainer) return;
 
       dragContainer.draggable = true;
 
-      dragContainer?.addEventListener("dragstart", function (event) {
+      dragContainer?.addEventListener("dragstart", (event) => {
         event?.dataTransfer?.setData("text/plain", String(i));
       });
 
-      dragContainer?.addEventListener("dragend", function (event) {
+      dragContainer?.addEventListener("dragend", () => {
         dragContainer.draggable = false;
       });
     });
@@ -200,7 +202,7 @@ const handleEvent = () => {
       }
     });
 
-    addLinkContainer?.addEventListener("dragover", function (event) {
+    addLinkContainer?.addEventListener("dragover", (event) => {
       event.preventDefault(); // Prevent default behavior
     });
 
@@ -219,12 +221,12 @@ const handleEvent = () => {
   });
 };
 
-addLinkContainer?.addEventListener("drop", function (event) {
+addLinkContainer?.addEventListener("drop", (event) => {
   event.preventDefault(); // Prevent default behavior
   const target = event.target as HTMLElement; // Cast event.target to HTMLElement
   const parentNode = target.parentNode as HTMLElement | null; // Cast parentNode to HTMLElement or null
   if (parentNode && event.dataTransfer) {
-    const fromIndex = parseInt(event.dataTransfer.getData("text/plain"));
+    const fromIndex = parseInt(event.dataTransfer.getData("text/plain"), 10);
     const toIndex = Array.from(parentNode.children).indexOf(target);
 
     // Rearrange the array
