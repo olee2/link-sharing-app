@@ -1296,6 +1296,11 @@ html {
   text-decoration-line: underline;
 }
 
+.\!link {
+  cursor: pointer !important;
+  text-decoration-line: underline !important;
+}
+
 .menu li.disabled {
   cursor: not-allowed;
   -webkit-user-select: none;
@@ -1603,9 +1608,19 @@ html {
   outline-offset: 2px;
 }
 
+.\!link:focus {
+  outline: 2px solid transparent !important;
+  outline-offset: 2px !important;
+}
+
 .link:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
+}
+
+.\!link:focus-visible {
+  outline: 2px solid currentColor !important;
+  outline-offset: 2px !important;
 }
 
 .menu li > *:not(ul):not(.menu-title):not(details):active,

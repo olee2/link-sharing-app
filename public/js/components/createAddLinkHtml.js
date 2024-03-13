@@ -2,13 +2,13 @@ import { platforms } from "../constants/platforms.js";
 export const createAddLinkHtml = (num) => {
     return `
  <div
- draggable="true"
  class="flex justify-center items-center flex-col bg-greyLight p-5 rounded-md  gap-4"
+ id=drag-container-${num}
  >
  <div
    class="flex w-full items-center justify-between font-bold text-bm text-grey"
  >
-   <div class="flex items-center gap-2">
+   <div id=drag-icon-${num} class="flex items-center gap-2 cursor-pointer">
      <svg
        xmlns="http://www.w3.org/2000/svg"
        width="12"
@@ -19,7 +19,7 @@ export const createAddLinkHtml = (num) => {
      >
        <path fill="#737373" d="M0 0h12v1H0zM0 5h12v1H0z" />
      </svg>
-     <p>Link #${num}</p>
+     <p>Link #${num + 1}</p>
    </div>
    <p id=remove-${num} class="font-normal cursor-pointer">Remove</p>
  </div>
@@ -74,6 +74,7 @@ export const createAddLinkHtml = (num) => {
      
      <div class="bg-white">
        <input
+
          class="block w-full border-borders rounded-md p-3 pl-10 placeholder:text-greyDark placeholder:text-opacity-50 focus:ring-0 focus:shadow-activeSelection focus:ring-inset focus:ring-purple link-input"
          id="link-${num}"
          placeholder="e.g. https://www.github.com/johnappleseed"
@@ -84,4 +85,4 @@ export const createAddLinkHtml = (num) => {
  </div>
  `;
 };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY3JlYXRlQWRkTGlua0h0bWwuanMiLCJzb3VyY2VSb290IjoiLi4vc3JjLyIsInNvdXJjZXMiOlsiY29tcG9uZW50cy9jcmVhdGVBZGRMaW5rSHRtbC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxPQUFPLEVBQUUsU0FBUyxFQUFFLE1BQU0sMkJBQTJCLENBQUM7QUFFdEQsTUFBTSxDQUFDLE1BQU0saUJBQWlCLEdBQUcsQ0FBQyxHQUFXLEVBQUUsRUFBRTtJQUMvQyxPQUFPOzs7Ozs7Ozs7Ozs7Ozs7Ozs7O2dCQW1CTyxHQUFHOztrQkFFRCxHQUFHOzs7Ozs7OzZCQU9RLEdBQUc7Ozs7b0JBSVosR0FBRzs7b0NBRWEsR0FBRzs7Ozs7Ozs7Ozs7dUJBV2hCLEdBQUc7Ozs7U0FJakIsU0FBUztTQUNSLEdBQUcsQ0FBQyxDQUFDLFFBQVEsRUFBRSxFQUFFO1FBQ2hCLE9BQU87aUJBQ0QsUUFBUTs7O21DQUdVLFFBQVEsY0FBYyxRQUFRO29DQUM3QixRQUFRO2FBQy9CLENBQUM7SUFDTCxDQUFDLENBQUM7U0FDRCxJQUFJLENBQUMsRUFBRSxDQUFDOzs7Ozs7Ozs7NEJBU1UsR0FBRzs7Ozs7OztvQkFPWCxHQUFHOzs7Ozs7O0VBT3JCLENBQUM7QUFDSCxDQUFDLENBQUMifQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY3JlYXRlQWRkTGlua0h0bWwuanMiLCJzb3VyY2VSb290IjoiLi4vc3JjLyIsInNvdXJjZXMiOlsiY29tcG9uZW50cy9jcmVhdGVBZGRMaW5rSHRtbC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxPQUFPLEVBQUUsU0FBUyxFQUFFLE1BQU0sMkJBQTJCLENBQUM7QUFFdEQsTUFBTSxDQUFDLE1BQU0saUJBQWlCLEdBQUcsQ0FBQyxHQUFXLEVBQUUsRUFBRTtJQUMvQyxPQUFPOzs7cUJBR1ksR0FBRzs7Ozs7dUJBS0QsR0FBRzs7Ozs7Ozs7Ozs7Z0JBV1YsR0FBRyxHQUFHLENBQUM7O2tCQUVMLEdBQUc7Ozs7Ozs7NkJBT1EsR0FBRzs7OztvQkFJWixHQUFHOztvQ0FFYSxHQUFHOzs7Ozs7Ozs7Ozt1QkFXaEIsR0FBRzs7OztTQUlqQixTQUFTO1NBQ1IsR0FBRyxDQUFDLENBQUMsUUFBUSxFQUFFLEVBQUU7UUFDaEIsT0FBTztpQkFDRCxRQUFROzs7bUNBR1UsUUFBUSxjQUFjLFFBQVE7b0NBQzdCLFFBQVE7YUFDL0IsQ0FBQztJQUNMLENBQUMsQ0FBQztTQUNELElBQUksQ0FBQyxFQUFFLENBQUM7Ozs7Ozs7Ozs0QkFTVSxHQUFHOzs7Ozs7OztvQkFRWCxHQUFHOzs7Ozs7O0VBT3JCLENBQUM7QUFDSCxDQUFDLENBQUMifQ==

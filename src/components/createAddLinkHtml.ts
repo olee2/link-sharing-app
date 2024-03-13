@@ -3,13 +3,13 @@ import { platforms } from "../constants/platforms.js";
 export const createAddLinkHtml = (num: number) => {
   return `
  <div
- draggable="true"
  class="flex justify-center items-center flex-col bg-greyLight p-5 rounded-md  gap-4"
+ id=drag-container-${num}
  >
  <div
    class="flex w-full items-center justify-between font-bold text-bm text-grey"
  >
-   <div class="flex items-center gap-2">
+   <div id=drag-icon-${num} class="flex items-center gap-2 cursor-pointer">
      <svg
        xmlns="http://www.w3.org/2000/svg"
        width="12"
@@ -20,7 +20,7 @@ export const createAddLinkHtml = (num: number) => {
      >
        <path fill="#737373" d="M0 0h12v1H0zM0 5h12v1H0z" />
      </svg>
-     <p>Link #${num}</p>
+     <p>Link #${num + 1}</p>
    </div>
    <p id=remove-${num} class="font-normal cursor-pointer">Remove</p>
  </div>
@@ -75,6 +75,7 @@ export const createAddLinkHtml = (num: number) => {
      
      <div class="bg-white">
        <input
+
          class="block w-full border-borders rounded-md p-3 pl-10 placeholder:text-greyDark placeholder:text-opacity-50 focus:ring-0 focus:shadow-activeSelection focus:ring-inset focus:ring-purple link-input"
          id="link-${num}"
          placeholder="e.g. https://www.github.com/johnappleseed"

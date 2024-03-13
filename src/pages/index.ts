@@ -67,6 +67,7 @@ const updateUIWithData = (profile: Profile, links?: Link[]) => {
   if (mobileLinksContainer && links) {
     mobileLinksContainer.innerHTML = links
       .map((link, index) => {
+        if (!link.platform) return;
         return `
         <div id="button-${index}" style="background-color: ${platformsMap[link.platform].color}" class="cursor-pointer w-60 px-4 h-11 rounded-md flex justify-between items-center">
           <div class="flex gap-2 items-center">
@@ -117,10 +118,14 @@ const handleEvent = () => {
     const invalidLinkInput = document.getElementById(`invalid-link-${i}`);
     // Remove btn
     const removeBtn = document.getElementById(`remove-${i}`);
+    // Drag icon btn
+    const dragBtn = document.getElementById(`drag-icon-${i}`);
 
     const invalidPlatformInput = document.getElementById(
       `invalid-platform-${i}`
     );
+
+    const dragContainer = document.getElementById(`drag-container-${i}`);
 
     // A function to handle when a platform is choosen
     const setPlatform = (platformId: string) => {
@@ -146,6 +151,21 @@ const handleEvent = () => {
           invalidLinkInput?.classList.add("hidden");
         }
       }
+    });
+
+    // Add event listeners to the input field
+    dragBtn?.addEventListener("mousedown", (event) => {
+      if (!dragContainer) return;
+
+      dragContainer.draggable = true;
+
+      dragContainer?.addEventListener("dragstart", function (event) {
+        event?.dataTransfer?.setData("text/plain", String(i));
+      });
+
+      dragContainer?.addEventListener("dragend", function (event) {
+        dragContainer.draggable = false;
+      });
     });
 
     // Update url input if there is any value stored in the corresponding object in the array
@@ -180,6 +200,10 @@ const handleEvent = () => {
       }
     });
 
+    addLinkContainer?.addEventListener("dragover", function (event) {
+      event.preventDefault(); // Prevent default behavior
+    });
+
     // Listen for clicks on the select in order to show/hide the select items list
     select?.addEventListener("click", () => {
       selectList?.classList.toggle("hidden");
@@ -194,6 +218,23 @@ const handleEvent = () => {
     });
   });
 };
+
+addLinkContainer?.addEventListener("drop", function (event) {
+  event.preventDefault(); // Prevent default behavior
+  const target = event.target as HTMLElement; // Cast event.target to HTMLElement
+  const parentNode = target.parentNode as HTMLElement | null; // Cast parentNode to HTMLElement or null
+  if (parentNode && event.dataTransfer) {
+    const fromIndex = parseInt(event.dataTransfer.getData("text/plain"));
+    const toIndex = Array.from(parentNode.children).indexOf(target);
+
+    // Rearrange the array
+    const element = linkArray.splice(fromIndex, 1)[0];
+    linkArray.splice(toIndex, 0, element);
+
+    // Re-render the elements
+    handleEvent();
+  }
+});
 
 addLinkBtn?.addEventListener("click", () => {
   // Adding a link object when button is clicked
